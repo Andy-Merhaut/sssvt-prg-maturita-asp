@@ -4,7 +4,7 @@ namespace MaturitaASP.Models
 {
     public class MyContext : DbContext
     {
-        public DbSet<Person> Person { get; set; }
+        public DbSet<> Person { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
