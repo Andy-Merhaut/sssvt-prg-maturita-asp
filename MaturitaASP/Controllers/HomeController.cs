@@ -1,37 +1,37 @@
-﻿using MaturitaASP.Models;
+﻿using MaturitaASP.Models.Bikes;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MaturitaASP.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private BikeRepository _table = new BikeRepository();
 
         public IActionResult Index()
         {
+            this.ViewBag.Bikes = this._table.SelectAll();
             return View();
         }
-
-        public IActionResult Privacy()
+        
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult Create(Bike bike)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            /*ptáme se formuláře, zda je validní -> 1/0 Ano/Ne True/False*/
+            if (this.ModelState.IsValid)
+            {
+                /*pokud ano*/
+                this._table.Insert(bike);
+                return RedirectToAction("Index");
+            }
+
+            /*pokud ne, tak zůstanu, tam kde jsem, abych si ty data mohl opravit*/
+            return View();
         }
     }
 }

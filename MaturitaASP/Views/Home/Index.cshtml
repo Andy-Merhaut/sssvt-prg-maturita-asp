@@ -1,8 +1,24 @@
-﻿@{
+﻿@using MaturitaASP.Models.Bikes
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="text-center">
+        <h1>TEST</h1>
+    </div>
 </div>
+
+@foreach (Bike bike in ViewBag.Bikes)
+{
+    <h5>@bike.Id</h5>
+    <div>@bike.Name</div>
+    <div>@bike.Power</div>
+    <hr />
+}
+
+@*
+    MUSIME VYTVORIT ODKAZ PRO DOSTANI SE NA VYTVARENI NOVE MOTORKY DO DATABASE
+*@
+
+<a class="btn btn-success" asp-action="Create">CREATE</a>
